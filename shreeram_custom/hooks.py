@@ -5,6 +5,13 @@ app_description = "Shreeram Customizations"
 app_email = "prathamesh.j@hybrowlabs.com"
 app_license = "mit"
 
+fixtures = [
+	{
+		"dt": "Custom Field",
+		"filters": [["module", "=", "Shreeram Custom"]],
+	},
+]
+
 # Apps
 # ------------------
 
@@ -43,7 +50,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Item": "public/js/item.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -136,6 +143,12 @@ app_license = "mit"
 # Document Events
 # ---------------
 # Hook on document methods and events
+
+doc_events = {
+	"Item": {
+		"before_save": "shreeram_custom.events.item.before_save",
+	},
+}
 
 # doc_events = {
 # 	"*": {
