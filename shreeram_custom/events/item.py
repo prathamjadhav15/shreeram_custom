@@ -8,8 +8,8 @@ ATTRIBUTE_FIELDS = [
 	"custom_size",
 	"custom_dia_id",
 	"custom_facing",
-	"custom_wn",
 	"custom_wn_side",
+	"custom_wn",
 ]
 
 
