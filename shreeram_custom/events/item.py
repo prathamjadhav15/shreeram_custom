@@ -26,3 +26,4 @@ def before_save(doc, method):
 		item_code = " ".join(parts)
 		doc.item_code = item_code
 		doc.item_name = item_code
+		doc.name = item_code
