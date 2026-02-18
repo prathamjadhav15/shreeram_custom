@@ -35,5 +35,6 @@ def before_save(doc, _method):
 
 def after_save(doc, _method):
 	item_code = get_item_code(doc)
+	frappe.msgprint(item_code)
 	if item_code and doc.name != item_code:
 		frappe.rename_doc("Item", doc.name, item_code, force=True)
