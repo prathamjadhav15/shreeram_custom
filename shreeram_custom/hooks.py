@@ -145,10 +145,12 @@ doctype_js = {"Item": "public/js/item.js"}
 # Hook on document methods and events
 
 doc_events = {
-	"Item": {
-		"before_save": "shreeram_custom.events.item.before_save",
-	},
+    "Item": {
+        "before_save": "shreeram_custom.events.item.before_save",
+        "after_save": "shreeram_custom.events.item.after_save",
+    }
 }
+
 
 # doc_events = {
 # 	"*": {
