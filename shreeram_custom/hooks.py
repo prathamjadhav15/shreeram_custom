@@ -147,7 +147,7 @@ doctype_js = {"Item": "public/js/item.js"}
 doc_events = {
     "Item": {
         "before_save": "shreeram_custom.events.item.before_save",
-        "on_update": "shreeram_custom.events.item.on_update",
+        # "on_update": "shreeram_custom.events.item.on_update",
     }
 }
 
