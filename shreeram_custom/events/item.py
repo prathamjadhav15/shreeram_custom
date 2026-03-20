@@ -28,7 +28,7 @@ def before_save(doc, method):
 	item_code = get_item_code(doc)
 	if item_code:
 		doc.item_code = item_code
-		doc.item_name = item_code
+		# doc.item_name = item_code
 		if doc.is_new():
 			doc.name = item_code
 
