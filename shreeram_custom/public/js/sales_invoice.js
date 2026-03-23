@@ -1,3 +1,19 @@
+frappe.ui.form.on("Sales Invoice", {
+	custom_freight_amount(frm) {
+		calculate_grand_total(frm);
+	},
+	custom_packaging_amount(frm) {
+		calculate_grand_total(frm);
+	},
+});
+
+function calculate_grand_total(frm) {
+	const freight = flt(frm.doc.custom_freight_amount);
+	const packaging = flt(frm.doc.custom_packaging_amount);
+	const net_total = flt(frm.doc.total);
+	frm.set_value("grand_total", net_total + freight + packaging);
+}
+
 frappe.ui.form.on("Sales Invoice Item", {
 	custom_bags(frm, cdt, cdn) {
 		calculate_qty(frm, cdt, cdn);
