@@ -1,6 +1,6 @@
 frappe.ui.form.on("Sales Invoice", {
 	refresh(frm) {
-		// render_additional_amount_button(frm);
+		render_additional_amount_button(frm);
 	},
 	// custom_freight_amount(frm) {
 	// 	calculate_grand_total(frm);
@@ -62,22 +62,25 @@ function render_additional_amount_button(frm) {
 	</button>`)
 		.appendTo($wrapper)
 		.on("click", function () {
-			const amount = flt(frm.doc.custom_freight_amount) + flt(frm.doc.custom_packaging_amount);
+			const freight = flt(frm.doc.custom_freight_amount);
+			const packaging = flt(frm.doc.custom_packaging_amount);
+			const amount = freight + packaging;
+			const tax_rate = flt(frm.doc.custom_additional_amount_tax);
+			const tax_amount = tax_rate ? amount * tax_rate / 100 : 0;
+			const total = amount + tax_amount;
 
-			// Remove existing row with same account_head to avoid duplicates
 			const existing = (frm.doc.taxes || []).find(
 				(r) => r.account_head === "Freight and Forwarding Charges - SR"
 			);
 			if (existing) {
-				frappe.model.set_value(
-					existing.doctype, existing.name, "tax_amount", amount
-				);
+				frappe.model.set_value(existing.doctype, existing.name, "tax_amount", total);
 			} else {
 				const row = frappe.model.add_child(frm.doc, "Sales Taxes and Charges", "taxes");
 				row.charge_type = "Actual";
 				row.account_head = "Freight and Forwarding Charges - SR";
-				row.tax_amount = amount;
+				row.tax_amount = total;
 			}
+
 			frm.refresh_field("taxes");
 		});
 }
