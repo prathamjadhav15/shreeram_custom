@@ -51,8 +51,8 @@ function calculate_grand_total(frm) {
 }
 
 function render_additional_amount_button(frm) {
-	const $wrapper = frm.fields_dict.custom_freight_amount &&
-		frm.fields_dict.custom_freight_amount.$wrapper;
+	const $wrapper = frm.fields_dict.custom_additional_amount_tax &&
+		frm.fields_dict.custom_additional_amount_tax.$wrapper;
 	if (!$wrapper) return;
 
 	$wrapper.find(".btn-additional-amount").remove();
