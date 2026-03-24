@@ -64,22 +64,23 @@ function render_additional_amount_button(frm) {
 		.on("click", function () {
 			const freight = flt(frm.doc.custom_freight_amount);
 			const packaging = flt(frm.doc.custom_packaging_amount);
-			const amount = freight + packaging;
-			const tax_rate = flt(frm.doc.custom_additional_amount_tax);
-			const tax_amount = tax_rate ? amount * tax_rate / 100 : 0;
-			const total = amount + tax_amount;
 
-			const existing = (frm.doc.taxes || []).find(
-				(r) => r.account_head === "Freight and Forwarding Charges - SREPL"
-			);
-			if (existing) {
-				frappe.model.set_value(existing.doctype, existing.name, "tax_amount", total);
-			} else {
-				const row = frappe.model.add_child(frm.doc, "Sales Taxes and Charges", "taxes");
-				row.charge_type = "Actual";
-				row.account_head = "Freight and Forwarding Charges - SREPL";
-				row.tax_amount = total;
+			function upsert_row(account_head, amount) {
+				const existing = (frm.doc.taxes || []).find(
+					(r) => r.account_head === account_head
+				);
+				if (existing) {
+					frappe.model.set_value(existing.doctype, existing.name, "tax_amount", amount);
+				} else {
+					const row = frappe.model.add_child(frm.doc, "Sales Taxes and Charges", "taxes");
+					row.charge_type = "Actual";
+					row.account_head = account_head;
+					row.tax_amount = amount;
+				}
 			}
+
+			if (freight) upsert_row("Freight and Forwarding Charges - SREPL", freight);
+			if (packaging) upsert_row("Packaging Charges - SREPL", packaging);
 
 			frm.refresh_field("taxes");
 		});
