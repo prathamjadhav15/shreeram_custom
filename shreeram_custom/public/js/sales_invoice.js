@@ -70,14 +70,14 @@ function render_additional_amount_button(frm) {
 			const total = amount + tax_amount;
 
 			const existing = (frm.doc.taxes || []).find(
-				(r) => r.account_head === "Freight and Forwarding Charges - SR"
+				(r) => r.account_head === "Freight and Forwarding Charges - SREPL"
 			);
 			if (existing) {
 				frappe.model.set_value(existing.doctype, existing.name, "tax_amount", total);
 			} else {
 				const row = frappe.model.add_child(frm.doc, "Sales Taxes and Charges", "taxes");
 				row.charge_type = "Actual";
-				row.account_head = "Freight and Forwarding Charges - SR";
+				row.account_head = "Freight and Forwarding Charges - SREPL";
 				row.tax_amount = total;
 			}
 
