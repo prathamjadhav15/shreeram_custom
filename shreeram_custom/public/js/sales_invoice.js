@@ -1,6 +1,6 @@
 frappe.ui.form.on("Sales Invoice", {
 	refresh(frm) {
-		render_additional_amount_button(frm);
+		// render_additional_amount_button(frm);
 	},
 	// custom_freight_amount(frm) {
 	// 	calculate_grand_total(frm);
@@ -64,6 +64,8 @@ function render_additional_amount_button(frm) {
 		.on("click", function () {
 			const freight = flt(frm.doc.custom_freight_amount);
 			const packaging = flt(frm.doc.custom_packaging_amount);
+			const tax_rate = flt(frm.doc.custom_additional_amount_tax);
+			const tax_multiplier = 1 + tax_rate / 100;
 
 			function upsert_row(account_head, amount) {
 				const existing = (frm.doc.taxes || []).find(
@@ -79,8 +81,8 @@ function render_additional_amount_button(frm) {
 				}
 			}
 
-			if (freight) upsert_row("Freight and Forwarding Charges - SREPL", freight);
-			if (packaging) upsert_row("Packaging Charges - SREPL", packaging);
+			if (freight) upsert_row("Freight and Forwarding Charges - SREPL", freight * tax_multiplier);
+			if (packaging) upsert_row("Packaging Charges - SREPL", packaging * tax_multiplier);
 
 			frm.refresh_field("taxes");
 		});
