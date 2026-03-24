@@ -2,17 +2,17 @@ frappe.ui.form.on("Sales Invoice", {
 	refresh(frm) {
 		render_additional_amount_button(frm);
 	},
-	custom_freight_amount(frm) {
-		calculate_grand_total(frm);
-		render_additional_amount_button(frm);
-	},
-	custom_packaging_amount(frm) {
-		calculate_grand_total(frm);
-		render_additional_amount_button(frm);
-	},
-	total(frm) {
-		calculate_grand_total(frm);
-	},
+	// custom_freight_amount(frm) {
+	// 	calculate_grand_total(frm);
+	// 	render_additional_amount_button(frm);
+	// },
+	// custom_packaging_amount(frm) {
+	// 	calculate_grand_total(frm);
+	// 	render_additional_amount_button(frm);
+	// },
+	// total(frm) {
+	// 	calculate_grand_total(frm);
+	// },
 });
 
 frappe.ui.form.on("Sales Invoice Item", {
