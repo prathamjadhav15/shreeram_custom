@@ -1,6 +1,6 @@
 frappe.ui.form.on("Sales Invoice", {
 	refresh(frm) {
-		render_additional_amount_button(frm);
+		// render_additional_amount_button(frm);
 	},
 	// custom_freight_amount(frm) {
 	// 	calculate_grand_total(frm);
