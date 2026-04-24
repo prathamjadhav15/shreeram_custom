@@ -261,3 +261,6 @@ doc_events = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+override_doctype_class = {
+    "Sales Order": "shreeram_custom.config.py.sales_order.CustomSalesOrder"
+}

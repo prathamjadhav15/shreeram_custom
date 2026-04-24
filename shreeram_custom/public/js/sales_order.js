@@ -1,4 +1,9 @@
 frappe.ui.form.on("Sales Order", {
+	refresh: function(frm) {
+        frm.fields_dict['items'].grid.update_docfield_property(
+            'delivery_note', 'reqd', 0
+        );
+    },
 	custom_third_party_inspection: function (frm) {
 		frm.set_value("custom_inspection_date", null);
 		frm.set_value("custom_inspection_report", null);
@@ -8,3 +13,4 @@ frappe.ui.form.on("Sales Order", {
 		frm.set_df_property("custom_inspection_report", "reqd", is_required);
 	},
 });
+
