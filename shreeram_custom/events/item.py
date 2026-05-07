@@ -36,7 +36,5 @@ def before_save(doc, method):
 def on_update(doc, method):
 	item_code = get_item_code(doc)
 	if item_code and doc.name != item_code:
-		old_name = doc.name
-		frappe.db.after_commit.add(
-			lambda: frappe.rename_doc("Item", old_name, item_code, force=True)
-		)
+		frappe.rename_doc("Item", doc.name, item_code, force=True)
+		frappe.response["docname"] = item_code
