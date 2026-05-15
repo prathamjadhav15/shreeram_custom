@@ -1,18 +1,5 @@
-frappe.ui.form.on("Sales Order", {
-	refresh: function(frm) {
-        frm.fields_dict['items'].grid.update_docfield_property(
-            'delivery_note', 'reqd', 0
-        );
-    },
-	custom_third_party_inspection: function (frm) {
-		frm.set_value("custom_inspection_date", null);
-		frm.set_value("custom_inspection_report", null);
-
-		const is_required = frm.doc.custom_third_party_inspection ? 1 : 0;
-		frm.set_df_property("custom_inspection_date", "reqd", is_required);
-		frm.set_df_property("custom_inspection_report", "reqd", is_required);
-	},
-	shipping_address_name: function(frm) {
+frappe.ui.form.on('Delivery Note', {
+    shipping_address_name: function(frm) {
         if (frm.doc.shipping_address_name && frm.doc.custom_temporary_address) {
             frappe.msgprint({
                 title: 'Validation Error',
@@ -34,6 +21,3 @@ frappe.ui.form.on("Sales Order", {
         }
     }
 });
-
-
-
